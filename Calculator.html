@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+body {
+  background: linear-gradient(to right, #ffecd2, #fcb69f);
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.calculator {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  max-width: 320px;
+  width: 90%;
+  padding: 2%;
+
+}
+
+.display {
+  background: #222;
+  color: #fff;
+  font-size: 2em;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: right;
+  margin-bottom: 20px;
+  overflow-x: auto;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.btn {
+  padding: 15px;
+  font-size: 1.2em;
+  border: none;
+  border-radius: 10px;
+  background: #f0f0f0;
+  transition: transform 0.2s, backgroundcolor 0.3s;
+  cursor: pointer;
+  height: 60px;
+  width: 100%;
+}
+
+.btn:hover {
+  background: #ffd6d6;
+  transform: scale(1.05);
+}
+
+.operator {
+  background: #ffb6b9;
+  color: white;
+}
+
+.equal {
+  background: pink;
+  color: white;
+  height: 210%;
+}
+
+.zero {
+  grid-column: span 2;
+}
+
+.special {
+  background: #f67280;
+  color: white;
+}
+body.light {
+  background: linear-gradient(to right, #ffecd2, #fcb69f);
+  color: #000;
+}
+
+body.dark {
+  background: linear-gradient(to right, #2c3e50, #4ca1af);
+  color: #fff;
+}
+
+body.dark .calculator {
+  background: #333;
+  color: #fff;
+}
+
+body.dark .display {
+  background: #111;
+  color: #0f0;
+}
+
+body.dark .btn {
+  background: #555;
+  color: #fff;
+}
+
+body.dark .btn:hover {
+  background: #777;
+}
+
+body.dark .operator {
+  background: #e67e22;
+}
+
+body.dark .equal {
+  background: #e74c3c;
+}
+
+body.dark .special {
+  background: #9b59b6;
+}
+
+</style>
+<body>
+   <div class="calculator">
+  <div class="display" id="display">0</div>
+  <div class="buttons">
+    <button class="btn special" data-value="Reset">Reset</button>
+    <button class="btn operator" data-value="/">%</button>
+    <button class="btn operator" data-value="*">*</button>
+    <button class="btn special" data-value="Clear">AC</button>
+    <button class="btn" data-value="7">7</button>
+    <button class="btn" data-value="8">8</button>
+    <button class="btn" data-value="9">9</button>
+    <button class="btn operator" data-value="-">−</button>
+    <button class="btn" data-value="4">4</button>
+    <button class="btn" data-value="5">5</button>
+    <button class="btn" data-value="6">6</button>
+    <button class="btn operator" data-value="+">+</button>
+    <button class="btn" data-value="1">1</button>
+    <button class="btn" data-value="2">2</button>
+    <button class="btn" data-value="3">3</button>
+    <button class="btn equal" data-value="=">=</button>
+    <button class="btn zero" data-value="0">0</button>
+    <button class="btn" data-value=".">.</button>
+
+  </div>
+</div>
+
+<button id="themeToggle" style="position: absolute; top: 20px; right: 20px; padding: 10px 20px; border-radius: 10px; border: none; cursor: pointer;">🌙 Dark Mode</button>
+
+</body>
+<script>
+    const display = document.getElementById('display');
+const buttons = document.querySelectorAll('.btn');
+
+let currentInput = '';
+let resetNext = false;
+
+buttons.forEach(button => {
+  button.addEventListener('click', () => {
+    const value = button.dataset.value;
+
+    if (value === 'Reset') {
+      currentInput = '';
+      display.textContent = '0';
+    } else if (value === 'Clear') {
+      currentInput = currentInput.slice(0, -1);
+      display.textContent = currentInput || '0';
+    } else if (value === '=') {
+      try {
+        currentInput = eval(currentInput).toString();
+        display.textContent = currentInput;
+        resetNext = true;
+      } catch {
+        display.textContent = 'Error';
+        currentInput = '';
+      }
+    } else {
+      if (resetNext) {
+        currentInput = '';
+        resetNext = false;
+      }
+      currentInput += value;
+      display.textContent = currentInput;
+    }
+  });
+});
+
+  const themeToggle = document.getElementById('themeToggle');
+  const body = document.body;
+
+  
+  body.classList.add('light');
+
+  themeToggle.addEventListener('click', () => {
+    if (body.classList.contains('light')) {
+      body.classList.replace('light', 'dark');
+      themeToggle.textContent = '☀️ Light Mode';
+    } else {
+      body.classList.replace('dark', 'light');
+      themeToggle.textContent = '🌙 Dark Mode';
+    }
+  });
+
+
+</script>
+</html>

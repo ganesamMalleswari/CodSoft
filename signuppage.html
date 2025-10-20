@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login Form</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      padding: 50px 70px;
+      border: 10px solid lightseagreen;
+      border-radius: 20px;
+      text-align: left;
+      background-image: url(/image/smudged-green-pink-colored-white-backdrop.jpg);
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      box-sizing:none;
+    }
+
+    .form-container {
+      width: 30%;
+      max-width: 500px;
+      background: rgba(255, 255, 255, 0.9); /* Semi-transparent white overlay for better readability */
+      padding: 30px 50px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      animation: fadeInScale 0.8s ease-out; /* Fade in and scale animation on load */
+    }
+
+    @keyframes fadeInScale {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      border: 1px solid black;
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 15px;
+      box-sizing: border-box;
+      font-size: 16px;
+      transition: all 0.3s ease; /* Smooth transition for focus and hover effects */
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      border-color: #ff69b4; /* Pink border on focus */
+      box-shadow: 0 0 10px rgba(255, 105, 180, 0.5); /* Glow effect */
+      transform: translateY(-2px); /* Slight lift on focus */
+      outline: none;
+    }
+
+    input[type="text"]:hover,
+    input[type="password"]:hover {
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow on hover */
+    }
+
+    h1 {
+      margin-top: 5px;
+      margin-bottom: 5px;
+      color: blue;
+      text-align: center;
+      animation: slideDown 0.6s ease-out; /* Slide down animation for title */
+      font-size: large;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .login-button {
+      color: black;
+      margin: 10px 0;
+      border-radius: 10px;
+      font-family: sans-serif;
+      width: 100%;
+      height: 42px;
+      font-size: 16px;
+      cursor: pointer;
+      border: 1px solid black;
+      background-color: pink;
+      transition: all 0.3s ease; 
+    }
+
+    .login-button:hover {
+      background-color: #ff1493; /* Darker pink on hover */
+      transform: translateY(-3px); /* Lift effect */
+      box-shadow: 0 5px 15px rgba(255, 20, 147, 0.4); /* Glow shadow */
+    }
+
+    .login-button:active {
+      transform: translateY(-1px); /* Press down effect */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .inline-hr-container {
+      text-align: center;
+      margin-top: 10px;
+      animation: fadeIn 1s ease-out 0.5s both; /* Delayed fade in for separator */
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .inline-hr {
+      display: inline-block;
+      width: 25%;
+      margin: 0 10px;
+      border: none;
+      border-top: 2px solid #888;
+      transition: border-color 0.3s ease;
+    }
+
+    .inline-hr:hover {
+      border-top-color: #ff69b4; /* Pink on hover for fun */
+    }
+
+    .spaced-hr {
+      margin: 30px 0;
+      border: none;
+      border-top: 2px dashed #aaa;
+    }
+
+    footer {
+      width: 100%;
+      height: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+      color: black;
+      animation: bounceIn 0.8s ease-out 0.8s both; /* Bouncy entrance for footer */
+    }
+
+    @keyframes bounceIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.3);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.05);
+      }
+      70% {
+        transform: scale(0.9);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    footer div {
+      margin: 10px;
+      height: 20px;
+    }
+
+    footer a {
+      display: inline-block;
+      transition: all 0.3s ease; /* Smooth transition for social icons */
+      animation: iconPulse 2s infinite;
+      color:black; /* Pulsing animation for icons */
+    }
+
+    @keyframes iconPulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    footer a:hover {
+      transform: translateY(-5px) scale(1.2); /* Lift and scale on hover */
+      color:darkmagenta; /* Pink tint on hover */
+      text-shadow: 0 0 5px rgba(255, 105, 180, 0.5); /* Glow */
+    }
+
+    footer a:nth-child(1) { animation-delay: 0.1s; } /* Staggered delays for icons */
+    footer a:nth-child(2) { animation-delay: 0.2s; }
+    footer a:nth-child(3) { animation-delay: 0.3s; }
+    footer a:nth-child(4) { animation-delay: 0.4s; }
+
+    /* Label animations */
+    label {
+      transition: color 0.3s ease;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    label:hover {
+      color: #ff69b4; /* Pink on hover */
+    }
+
+    /* Form fields stagger animation */
+    form > label:nth-child(1),
+    form > input:nth-child(2) { animation-delay: 0.2s; }
+    form > label:nth-child(3),
+    form > input:nth-child(4) { animation-delay: 0.4s; }
+    form > label:nth-child(5),
+    form > input:nth-child(6) { animation-delay: 0.6s; }
+    form > label:nth-child(7),
+    form > div:nth-child(8) { animation-delay: 0.8s; }
+    form > button { animation-delay: 1s; }
+  </style>
+</head>
+<body >
+  <div class="form-container">
+    <h1>Log in/Sign up Page:-</h1>
+    <form action="">
+      <label for="name" id="label-name">FirstName: </label><br>
+      <input type="text" id="name" name="name" placeholder="Enter First Name" required /><br>
+
+      <label for="Lastname" id="label-lastName">LastName: </label><br />
+      <input type="text" id="Lastname" name="Lastname" placeholder="Enter Last Name" required /><br >
+
+      <label for="Email" id="label-Email">Email: </label><br />
+      <input type="text" id="Email" name="Email" placeholder="Enter Email" required /><br>
+
+      <label for="Password" id="label-Password">Password: </label><br>
+      <div class="password-container">
+        <input type="password" id="Password" name="Password" placeholder="Enter Password" required /><br>
+      </div>
+      <button type="submit" class="login-button">Login Now</button>
+      <div class="inline-hr-container">
+        <hr class="inline-hr"/>or Login with
+        <hr class="inline-hr"/>
+      </div>
+    </form>
+    <footer>
+       <div>
+        <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook" style="font-size: 20px; margin-right: 15px; "></i></a>
+        <a href="https://google.com" target="_blank"><i class="fab fa-google" style="font-size: 20px; margin-right: 15px;"></i></a>
+        <a href="https://LinkedIn.com"  target="_blank"><i class="fab fa-linkedin" style="font-size: 20px; margin-right: 15px; "></i></a>
+        <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram" style="font-size: 20px; margin-right:15px ; "></i></a>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
