@@ -1,0 +1,265 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Welcome</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .welcome-box {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(0,0,0,0.2);
+      animation: fadeIn 1.5s ease-in-out;
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .welcome-text {
+      font-size: 36px;
+      font-weight: bold;
+      margin-bottom: 30px;
+      animation: glow 2s infinite alternate;
+    }
+
+    .next-btn {
+      padding: 12px 28px;
+      font-size: 18px;
+      font-weight: bold;
+      background: linear-gradient(to right, #43e97b, #38f9d7);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 12px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .next-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 18px rgba(0,0,0,0.3);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #ff6a00; }
+      to { text-shadow: 0 0 20px #ee0979; }
+    }
+
+    .fade-out {
+      opacity: 0;
+      transform: translateY(-50px);
+    }
+  </style>
+</head>
+<body>
+  <div class="welcome-box" id="welcomeBox">
+    <div class="welcome-text"> Welcome !  <br> Test your Knowlegde</div>
+    <button class="next-btn" onclick="startQuiz()">Next</button>
+  </div>
+
+
+  <script>
+    function startQuiz() {
+      const box = document.getElementById("welcomeBox");
+      box.classList.add("fade-out");
+      setTimeout(() => {
+        box.style.display = "none";
+        // You can load your quiz here
+        alert("Quiz starts now!");
+      }, 800); // Match transition duration
+    }
+    
+  const quizData = [
+    {
+      question: "Which HTML tag is used to create a hyperlink?",
+      options: ["<a>", "<link>", "<href>", "<url>"],
+      answer: 0
+    },
+    {
+      question: "Which tag is used to insert an image in HTML?",
+      options: ["<img>", "<picture>", "<image>", "<src>"],
+      answer: 0
+    },
+    {
+      question: "What does HTML stand for?",
+       options: ["Hyper Tool Multi Language","Hyper Text Markup Language","Hyper Trainer Marking Language","Hyper Text Marketing Language",],
+      answer: 1
+    },
+    {
+      question: "What is the correct HTML element for inserting a line break?",
+      options: ["<break>", "<br>", "<lb>", "<line>"],
+      answer: 1
+    },
+    {
+      question: "Which tag is used to define a table row in HTML?",
+      options: ["<th>", "<table>", "<tr>", "<td>"],
+      answer: 2
+    },
+    {
+      question: "Which tag is used to define the largest heading in HTML?",
+      options: ["<head>", "<heading>", "<h1>", "<h6>"],
+      answer: 2
+    },
+    {
+      question: "What is the correct HTML element for inserting a horizontal line?",
+      options: ["<break>", "<hline>", "<hr>", "<line>"],
+      answer: 2
+    },
+    {
+      question: "Which attribute is used to provide alternative text for an image?",
+      options: ["title", "alt", "src", "href"],
+      answer: 1
+    },
+    {
+      question: "Which tag is used to create an unordered list?",
+      options: ["<ol>", "<list>", "<ul>", "<li>"],
+      answer: 2
+    },
+    {
+      question: "Which HTML tag is used to define a paragraph?",
+      options: ["<para>", "<pg>", "<p>", "<text>"],
+      answer: 2
+    }
+    
+  ];
+
+  let currentQuestion = 0;
+  let score = 0;
+  let timer;
+  let timeLeft = 15;
+
+  function startQuiz() {
+    const box = document.getElementById("welcomeBox");
+    box.classList.add("fade-out");
+    setTimeout(() => {
+      box.style.display = "none";
+      showQuiz();
+    }, 800);
+  }
+
+  function showQuiz() {
+    const quizContainer = document.createElement("div");
+    quizContainer.id = "quizContainer";
+    quizContainer.style.textAlign = "center";
+    quizContainer.style.background = "rgba(255,255,255,0.9)";
+    quizContainer.style.padding = "30px";
+    quizContainer.style.borderRadius = "20px";
+    quizContainer.style.boxShadow = "0 0 25px rgba(0,0,0,0.2)";
+    quizContainer.style.maxWidth = "600px";
+    quizContainer.style.margin = "auto";
+
+    document.body.appendChild(quizContainer);
+    renderQuestion();
+  }
+
+  function renderQuestion() {
+    const quizContainer = document.getElementById("quizContainer");
+    quizContainer.innerHTML = "";
+
+    const questionObj = quizData[currentQuestion];
+
+    const timerDisplay = document.createElement("div");
+    timerDisplay.id = "timer";
+    timerDisplay.style.fontWeight = "bold";
+    timerDisplay.style.marginBottom = "10px";
+    quizContainer.appendChild(timerDisplay);
+
+    const questionEl = document.createElement("h2");
+    questionEl.textContent = `Q${currentQuestion + 1}: ${questionObj.question}`;
+    quizContainer.appendChild(questionEl);
+
+    questionObj.options.forEach((opt, index) => {
+      const btn = document.createElement("button");
+      btn.textContent = opt;
+      btn.style.display = "block";
+      btn.style.margin = "10px auto";
+      btn.style.padding = "10px 20px";
+      btn.style.borderRadius = "8px";
+      btn.style.border = "none";
+      btn.style.cursor = "pointer";
+      btn.style.background = "#a6c1ee";
+      btn.onclick = () => {
+        if (index === questionObj.answer) score++;
+        clearInterval(timer);
+        nextQuestion();
+      };
+      quizContainer.appendChild(btn);
+    });
+
+    const navDiv = document.createElement("div");
+    navDiv.style.marginTop = "20px";
+
+    if (currentQuestion > 0) {
+      const prevBtn = document.createElement("button");
+      prevBtn.textContent = "Previous";
+      prevBtn.onclick = () => {
+        currentQuestion--;
+        renderQuestion();
+      };
+      navDiv.appendChild(prevBtn);
+    }
+
+    quizContainer.appendChild(navDiv);
+    startTimer();
+  }
+
+  function startTimer() {
+    timeLeft = 15;
+    const timerDisplay = document.getElementById("timer");
+    timerDisplay.textContent = `Time left: ${timeLeft}s`;
+
+    timer = setInterval(() => {
+      timeLeft--;
+      timerDisplay.textContent = `Time left: ${timeLeft}s`;
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+        nextQuestion();
+      }
+    }, 1000);
+  }
+
+  function nextQuestion() {
+    currentQuestion++;
+    if (currentQuestion < quizData.length) {
+      renderQuestion();
+    } else {
+      showScore();
+    }
+  }
+
+  function showScore() {
+    const quizContainer = document.getElementById("quizContainer");
+    quizContainer.innerHTML = `
+      <h2>Your Score: ${score} / ${quizData.length}</h2>
+      <p>Thank you for participating!</p>
+      <button onclick="restartQuiz()" style="padding: 10px 20px; border-radius: 10px; background: #43e97b; border: none; font-weight: bold; cursor: pointer;">Restart</button>
+    `;
+  }
+
+  function restartQuiz() {
+    currentQuestion = 0;
+    score = 0;
+    renderQuestion();
+  }
+
+
+  </script>
+</body>
+</html>
